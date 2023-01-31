@@ -4,9 +4,9 @@ const server = {
 }
 
 const db_settings = {
-    username: "inix",
-    password: "S2wjJiVOYbeIGNMm",
-    db_name: "user-auth"
+    username: "",
+    password: "",
+    db_name: ""
 }
 
 export { db_settings, server }
