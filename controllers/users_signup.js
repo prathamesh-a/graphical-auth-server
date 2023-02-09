@@ -52,7 +52,7 @@ const signup = async (req, res, next) => {
         return next()
     }
 
-    res.status(200).json({ userId: createdUser.id, email: createdUser.email, token: token })
+    res.status(200).json({ username: createdUser.username, userId: createdUser.id, email: createdUser.email, token: token })
 }
 
 export {signup as signupController}

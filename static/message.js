@@ -6,7 +6,7 @@ const commons = {
 const login_messages = {
     format: ["username", "password", "pattern"],
     db_user_failed: 'Error occured while logging in, please try again later.',
-    user_already_exist: 'User already exists.',
+    user_not_exist: 'User does not exists.',
     db_pass_failed: 'Error occured while logging in, please try again later.',
     invalid_credentials: 'Invalid credentials given.',
     success: 'Logged in successfully.'

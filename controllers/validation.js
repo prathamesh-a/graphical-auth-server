@@ -16,8 +16,8 @@ const checkExistingUsername = async (req, res, next) => {
     try { user = await User.findOne({username: username}) }
     catch (err) { res.status(400).json({message: msg.search_err}) }
 
-    if (user) res.status(200).json({exist: true})
-    else res.status(200).json({exist: false})
+    if (user) res.status(200).json({exists: true})
+    else res.status(200).json({exists: false})
 }
 
 const checkExistingEmail = async (req, res, next) => {
@@ -35,8 +35,8 @@ const checkExistingEmail = async (req, res, next) => {
     try { user = await User.findOne({email: email}) }
     catch (err) { res.status(400).json({message: msg.search_err}) }
 
-    if (user) res.status(200).json({exist: true})
-    else res.status(200).json({exist: false})
+    if (user) res.status(200).json({exists: true})
+    else res.status(200).json({exists: false})
 }
 
 export { checkExistingEmail, checkExistingUsername } 
