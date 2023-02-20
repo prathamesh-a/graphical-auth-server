@@ -4,7 +4,7 @@ const commons = {
 }
 
 const login_messages = {
-    format: ["username", "password", "pattern"],
+    format: ["username", "password", "pattern" ],
     db_user_failed: 'Error occured while logging in, please try again later.',
     user_not_exist: 'User does not exists.',
     db_pass_failed: 'Error occured while logging in, please try again later.',
@@ -13,7 +13,7 @@ const login_messages = {
 }
 
 const signup_messages = {
-    format: ["username", "email", "password", "pattern"],
+    format: ["username", "email", "password", "pattern", "sequence"],
     db_user_failed: 'Error occured while signing up, please try again later.',
     user_already_exist: 'User already exists.',
     pass_hash_err: 'Error occured while signing up, please try again later.',

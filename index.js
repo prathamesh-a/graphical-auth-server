@@ -23,6 +23,7 @@ app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 mongoose
     .connect(`mongodb+srv://${db_settings.username}:${db_settings.password}@${db_settings.db_name}.ajnurbv.mongodb.net/?retryWrites=true&w=majority`)
     .then(() => {
+        console.log("Server running...")
         app.listen(server.port)
     })
     .catch(err => console.log(err))
