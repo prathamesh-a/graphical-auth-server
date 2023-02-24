@@ -13,11 +13,11 @@ const login_messages = {
 }
 
 const signup_messages = {
-    format: ["username", "email", "password", "pattern", "sequence"],
-    db_user_failed: 'Error occured while signing up, please try again later.',
+    format: ["username", "email", "password", "pattern", "sets", "sequence"],
+    db_user_failed: 'Error occured finding user on DB, please try again later.',
     user_already_exist: 'User already exists.',
-    pass_hash_err: 'Error occured while signing up, please try again later.',
-    db_save_err: 'Error occured while signing up, please try again later.',
+    pass_hash_err: 'Error occured while hashing passwprd, please try again later.',
+    db_save_err: 'Error occured while saving into db, please try again later.',
 }
 
 const validation_messages = {

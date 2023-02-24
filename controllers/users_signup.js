@@ -9,9 +9,9 @@ const signup = async (req, res, next) => {
     let token
     let existingUser
     let hashedPassword
-    const { username, email, password, pattern, sequence} = req.body
+    const { username, email, password, pattern, sets, sequence} = req.body
 
-    if (typeof username === 'undefined' || typeof email === 'undefined' || typeof password === 'undefined' || typeof pattern === 'undefined' || typeof sequence === 'undefined') {
+    if (typeof sets === 'undefined' || typeof username === 'undefined' || typeof email === 'undefined' || typeof password === 'undefined' || typeof pattern === 'undefined') {
         res.status(406).json({
             message: commons.invalid_params,
             format: msg.format
@@ -37,11 +37,12 @@ const signup = async (req, res, next) => {
     }
 
     const createdUser = new User({
-        username, email, password: hashedPassword, pattern, sequence
+        username, email, password: hashedPassword, sets, pattern, sequence:false
     })
 
     try { await createdUser.save() }
     catch (err) {
+        console.log(err)
         res.status(500).json({message: msg.db_save_err})
         return next()
     }

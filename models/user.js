@@ -8,7 +8,8 @@ const userSchema = new Schema({
     email: { type: String, required: true, unique: true },
     password: {type: String, required: true, minlength: 8 },
     pattern: { type: [String], required: true },
-    sequence: {type: Boolean, required: true}
+    sequence: { type: Boolean, required: true },
+    sets: {type: [[Object]], required: true}
 })
 
 userSchema.plugin(mongooseUniqueValidator)

@@ -1,9 +1,9 @@
+import fetch from "node-fetch";
+import { createApi } from "unsplash-js";
+
 function checkArray(arr1, arr2, sequence) {
-
     if (arr1.length != arr2.length) return false;
-
     var gflag = false;
-
     if (sequence){
         for(let i=0; i<arr1.length; i++) {
             if (arr1[i] != arr2[i]) {
@@ -22,8 +22,21 @@ function checkArray(arr1, arr2, sequence) {
         gflag = flag;
         }
     }
-
     return gflag;
 }
 
-export {checkArray}
+const unsplash = createApi({
+    accessKey: '4ZbDrA6rYXxDrle-QX4iwf9TNmbqrwlL3GY272X_T5I',
+    fetch: fetch,
+});
+
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
+
+export {checkArray, unsplash, shuffleArray}

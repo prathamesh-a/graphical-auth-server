@@ -1,42 +1,30 @@
 import { usertModel as User } from '../models/user.js'
 import { commons, validation_messages as msg } from '../static/message.js';
 
-const checkExistingUsername = async (req, res, next) => {
+const check = async (req, res, next) => {
     let user;
-    const {username} = req.body
+    const {username, email} = req.query
 
-    if (typeof username === 'undefined') {
+    if (typeof username === 'undefined' && typeof email === 'undefined') {
         res.status(500).json({
             message: commons.invalid_params,
-            format: ["username"]
+            format: "username or email"
         })
         return next()
     }
-    
-    try { user = await User.findOne({username: username}) }
-    catch (err) { res.status(400).json({message: msg.search_err}) }
-
-    if (user) res.status(200).json({exists: true})
-    else res.status(200).json({exists: false})
-}
-
-const checkExistingEmail = async (req, res, next) => {
-    let user
-    const {email} = req.body
     
     if (typeof email === 'undefined') {
-        res.status(500).json({
-            message: commons.invalid_params,
-            format: ["email"]
-        })
-        return next()
+        try { user = await User.findOne({username: username}) }
+        catch (err) { res.status(400).json({message: msg.search_err}) }
+        if (user) res.status(200).json({exists: true})
+        else res.status(200).json({exists: false})
     }
-    
-    try { user = await User.findOne({email: email}) }
-    catch (err) { res.status(400).json({message: msg.search_err}) }
-
-    if (user) res.status(200).json({exists: true})
-    else res.status(200).json({exists: false})
+    else if (typeof username === 'undefined') {
+        try { user = await User.findOne({email: email}) }
+        catch (err) { res.status(400).json({message: msg.search_err}) }
+        if (user) res.status(200).json({exists: true})
+        else res.status(200).json({exists: false})
+    }
 }
 
-export { checkExistingEmail, checkExistingUsername } 
+export { check } 

@@ -39,7 +39,7 @@ const login = async (req, res, next) => {
         return next()
     }
 
-    isValidPattern = checkArray(existingUser.pattern, pattern, existingUser.sequence)
+    isValidPattern = checkArray(existingUser.pattern, pattern, true)
 
     if (!isValidPassword || !isValidPattern) {
         res.status(500).json({message: msg.invalid_credentials})
