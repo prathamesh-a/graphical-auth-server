@@ -53,6 +53,7 @@ const login = async (req, res, next) => {
     if (!isValidPassword || !isValidPattern) {
         if (currentAttempts.attempts === server.max_attempts) {
             await userAttemptsModel.findOneAndUpdate({username: username, attempts: currentAttempts.attempts+1, token: nanoid(32)}).catch(err => console.log(err))
+            console.log("sending email entered")
             sendEmail(currentAttempts.email)
         }
         userAttemptsModel.findOneAndUpdate({username: username, attempts: currentAttempts.attempts+1}).catch(err => console.log(err))
