@@ -1,5 +1,8 @@
 import fetch from "node-fetch";
 import { createApi } from "unsplash-js";
+import { userAttemptsModel } from "../models/user_attempts.js";
+import { server } from "../static/config.js";
+import { transporter } from "./nodemailer.js";
 
 function checkArray(arr1, arr2, sequence) {
     if (arr1.length != arr2.length) return false;
@@ -39,4 +42,21 @@ function shuffleArray(array) {
     }
 }
 
-export {checkArray, unsplash, shuffleArray}
+async function sendEmail(email) {
+    const currentUser = await userAttemptsModel.findOne({email: email})
+    const mailOptions = {
+        from: "graphicalpassauth@gmail.com",
+        to: email,
+        subject: "GPA | Account Blocked",
+        html: `<div>
+                <p>Your account has been blocked for multiple attempts of login with invalid credentials.</p>
+                <p>Click the link below to unblock:</p>
+                <a href='${server.url}/api/verify?email=${email}&token=${currentUser.token}'>Unblock</a>
+               </div>`
+    }
+    transporter.sendMail(mailOptions, function(err, info) {
+        if (err) console.log(err)
+    })
+}
+
+export {checkArray, unsplash, shuffleArray, sendEmail}

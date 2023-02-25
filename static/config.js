@@ -1,6 +1,14 @@
 const server = {
     port: 5000,
-    token_key: "CAPSTONE"
+    token_key: "CAPSTONE",
+    max_attempts: 2,
+    //url: "http://localhost:5000"
+    url: "https://crazy-fish-tights.cyclic.app"
+}
+
+const smtp_settings = {
+    user: "graphicalpassauth@gmail.com",
+    password: "nutxswvvfjulubkn"
 }
 
 const db_settings = {
@@ -9,4 +17,4 @@ const db_settings = {
     db_name: "user-auth"
 }
 
-export { db_settings, server }
+export { db_settings, server, smtp_settings }

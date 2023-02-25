@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs"
 import { commons, signup_messages as msg } from '../static/message.js'
 import jwt from 'jsonwebtoken'
 import { server } from '../static/config.js'
+import { userAttemptsModel } from '../models/user_attempts.js'
 
 const signup = async (req, res, next) => {
 
@@ -40,7 +41,18 @@ const signup = async (req, res, next) => {
         username, email, password: hashedPassword, sets, pattern, sequence:false
     })
 
+    const attempts = new userAttemptsModel({
+        username, email, attempts: 0
+    })
+
     try { await createdUser.save() }
+    catch (err) {
+        console.log(err)
+        res.status(500).json({message: msg.db_save_err})
+        return next()
+    }
+
+    try { await attempts.save() }
     catch (err) {
         console.log(err)
         res.status(500).json({message: msg.db_save_err})
