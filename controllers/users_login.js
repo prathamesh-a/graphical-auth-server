@@ -57,7 +57,7 @@ const login = async (req, res, next) => {
             //console.log("sending email entered")
             sendEmail(currentAttempts.email)
         }
-        userAttemptsModel.findOneAndUpdate({username: username}, {attempts: currentAttempts.attempts+1}).catch(err => console.log(err))
+        await userAttemptsModel.findOneAndUpdate({username: username}, {attempts: currentAttempts.attempts+1}).catch(err => console.log(err))
         res.status(500).json({message: msg.invalid_credentials})
         return next()
     }
@@ -68,7 +68,7 @@ const login = async (req, res, next) => {
         res.status(500).json({message: commons.token_failed})
         return next()
     }
-    userAttemptsModel.findOneAndUpdate({username: username, attempts: 0}).catch(err => console.log(err))
+    await userAttemptsModel.findOneAndUpdate({username: username}, {attempts: 0}).catch(err => console.log(err))
     res.status(200).json({username: existingUser.username, userId: existingUser.id, email: existingUser.email, token: token})
 }
 

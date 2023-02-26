@@ -24,7 +24,7 @@ const verify = async (req, res, next) => {
     const storedToken = currentUser.token
 
     if (storedToken === token) {
-        userAttemptsModel.findOneAndUpdate({email: email, attempts: 0, token: ""}).catch(err => console.log(err))
+        await userAttemptsModel.findOneAndUpdate({email: email}, {attempts: 0, token: ""}).catch(err => console.log(err))
         res.sendFile(path.resolve() + '/views/unblocked.html')
     }
     else {
