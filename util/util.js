@@ -43,7 +43,6 @@ function shuffleArray(array) {
 }
 
 async function sendEmail(email) {
-    console.log("inside send email fun")
     const currentUser = await userAttemptsModel.findOne({email: email})
     const mailOptions = {
         from: "graphicalpassauth@gmail.com",
@@ -55,10 +54,10 @@ async function sendEmail(email) {
                 <a href='${server.url}/api/verify?email=${email}&token=${currentUser.token}'>Unblock</a>
                </div>`
     }
-    console.log("inside send email fun 2")
+    console.log("Sending email to " + email)
     transporter.sendMail(mailOptions, function(err, info) {
         if (err) console.log(err)
-        else console.log("Email sent")
+        else console.log("Email sent to " + email)
     })
 }
 

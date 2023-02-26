@@ -13,7 +13,8 @@ const login = async (req, res, next) => {
     let existingUser
     let isValidPassword = false
     var isValidPattern = false
-    const { username, password, pattern } = req.body
+    var { username, password, pattern } = req.body
+    username = username.toLowerCase()
 
     if (typeof username === 'undefined' || typeof password === 'undefined' || typeof pattern === 'undefined') {
         res.status(406).json({
@@ -53,7 +54,7 @@ const login = async (req, res, next) => {
     if (!isValidPassword || !isValidPattern) {
         if (currentAttempts.attempts === server.max_attempts) {
             await userAttemptsModel.findOneAndUpdate({username: username, attempts: currentAttempts.attempts+1, token: nanoid(32)}).catch(err => console.log(err))
-            console.log("sending email entered")
+            //console.log("sending email entered")
             sendEmail(currentAttempts.email)
         }
         userAttemptsModel.findOneAndUpdate({username: username, attempts: currentAttempts.attempts+1}).catch(err => console.log(err))

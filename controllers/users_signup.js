@@ -10,7 +10,8 @@ const signup = async (req, res, next) => {
     let token
     let existingUser
     let hashedPassword
-    const { username, email, password, pattern, sets, sequence} = req.body
+    var { username, email, password, pattern, sets, sequence} = req.body
+    username = username.toLowerCase()
 
     if (typeof sets === 'undefined' || typeof username === 'undefined' || typeof email === 'undefined' || typeof password === 'undefined' || typeof pattern === 'undefined') {
         res.status(406).json({

@@ -26,6 +26,7 @@ app.use('/api/user/', userRoutes)
 app.use('/api/image/', imageRoutes)
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+mongoose.set('strictQuery', true)
 mongoose
     .connect(`mongodb+srv://${db_settings.username}:${db_settings.password}@${db_settings.db_name}.ajnurbv.mongodb.net/?retryWrites=true&w=majority`)
     .then(() => {

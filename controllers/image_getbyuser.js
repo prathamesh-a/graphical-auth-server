@@ -3,7 +3,8 @@ import { usertModel as User } from "../models/user.js"
 
 const getByUser = async (req, res, next) => {
     
-    const { username } = req.query
+    var { username } = req.query
+    username = username.toLowerCase()
     let existingUser
     
     if (typeof username === 'undefined') {
