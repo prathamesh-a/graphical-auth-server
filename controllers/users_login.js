@@ -53,11 +53,11 @@ const login = async (req, res, next) => {
 
     if (!isValidPassword || !isValidPattern) {
         if (currentAttempts.attempts === server.max_attempts) {
-            await userAttemptsModel.findOneAndUpdate({username: username, attempts: currentAttempts.attempts+1, token: nanoid(32)}).catch(err => console.log(err))
+            await userAttemptsModel.findOneAndUpdate({username: username}, {attempts: currentAttempts.attempts+1, token: nanoid(32)}).catch(err => console.log(err))
             //console.log("sending email entered")
             sendEmail(currentAttempts.email)
         }
-        userAttemptsModel.findOneAndUpdate({username: username, attempts: currentAttempts.attempts+1}).catch(err => console.log(err))
+        userAttemptsModel.findOneAndUpdate({username: username}, {attempts: currentAttempts.attempts+1}).catch(err => console.log(err))
         res.status(500).json({message: msg.invalid_credentials})
         return next()
     }
