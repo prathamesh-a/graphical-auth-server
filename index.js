@@ -10,6 +10,7 @@ import fs from 'fs/promises'
 import { userAttemptsModel } from './models/user_attempts.js'
 import { usertModel } from './models/user.js'
 import { VerifyRoute } from './routes/verify.js'
+import { router as contactRoutes } from './routes/contact.js'
 
 const app = express()
 const swaggerDocument = JSON.parse(
@@ -24,7 +25,8 @@ app.use(bodyParser.json())
 app.use('/api/verify', VerifyRoute)
 app.use('/api/user/', userRoutes)
 app.use('/api/image/', imageRoutes)
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+app.use('/api/contact', contactRoutes)
 
 mongoose.set('strictQuery', true)
 mongoose
