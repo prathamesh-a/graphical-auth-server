@@ -1,11 +1,11 @@
-import * as dotenv from 'dotenv'
+//import * as dotenv from 'dotenv'
 import { usertModel as User } from '../models/user.js'
 import bcrypt from "bcryptjs"
 import { commons, signup_messages as msg } from '../static/message.js'
 import jwt from 'jsonwebtoken'
 import { userAttemptsModel } from '../models/user_attempts.js'
 
-dotenv.config()
+//dotenv.config()
 
 const signup = async (req, res, next) => {
 

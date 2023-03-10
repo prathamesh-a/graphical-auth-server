@@ -1,7 +1,7 @@
-import * as dotenv from 'dotenv'
+//import * as dotenv from 'dotenv'
 import { createTransport } from "nodemailer"
 
-dotenv.config()
+//dotenv.config()
 
 const transporter = createTransport({
     service: "gmail",

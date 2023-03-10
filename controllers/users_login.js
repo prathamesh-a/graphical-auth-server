@@ -1,4 +1,4 @@
-import * as dotenv from 'dotenv'
+//import * as dotenv from 'dotenv'
 import { usertModel as User } from '../models/user.js'
 import bcrypt from "bcryptjs"
 import { login_messages as  msg, commons} from '../static/message.js'
@@ -10,7 +10,7 @@ import { nanoid } from 'nanoid'
 
 const login = async (req, res, next) => {
 
-    dotenv.config()
+    //dotenv.config()
 
     let token
     let existingUser

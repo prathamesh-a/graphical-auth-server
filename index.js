@@ -1,5 +1,5 @@
-import * as dotenv from 'dotenv'
-dotenv.config()
+// import * as dotenv from 'dotenv'
+// dotenv.config()
 import bodyParser from 'body-parser'
 import express from 'express'
 import cors from 'cors'
@@ -12,6 +12,7 @@ import { router as contactRoutes } from './routes/contact.js'
 import { router as imageRoutes } from './routes/image.js'
 import { router as userRoutes } from './routes/users.js'
 
+console.log(process.env)
 
 const app = express()
 const swaggerDocument = JSON.parse(
