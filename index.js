@@ -1,17 +1,17 @@
+import * as dotenv from 'dotenv'
 import bodyParser from 'body-parser'
 import express from 'express'
 import cors from 'cors'
-import { router as imageRoutes } from './routes/image.js'
-import { router as userRoutes } from './routes/users.js'
 import mongoose from 'mongoose'
-import { db_settings, server } from './static/config.js'
 import swaggerUi from 'swagger-ui-express'
 import fs from 'fs/promises'
-import { userAttemptsModel } from './models/user_attempts.js'
-import { usertModel } from './models/user.js'
 import { VerifyRoute } from './routes/verify.js'
-import { router as contactRoutes } from './routes/contact.js'
 import { DigestRoutes } from './routes/digest.js'
+import { router as contactRoutes } from './routes/contact.js'
+import { router as imageRoutes } from './routes/image.js'
+import { router as userRoutes } from './routes/users.js'
+
+dotenv.config()
 
 const app = express()
 const swaggerDocument = JSON.parse(
@@ -32,10 +32,10 @@ app.use('/api/digest', DigestRoutes)
 
 mongoose.set('strictQuery', true)
 mongoose
-    .connect(`mongodb+srv://${db_settings.username}:${db_settings.password}@${db_settings.db_name}.ajnurbv.mongodb.net/?retryWrites=true&w=majority`)
+    .connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_NAME}.ajnurbv.mongodb.net/?retryWrites=true&w=majority`)
     .then(() => {
+        app.listen(process.env.PORT)
         console.log("Server running...")
-        app.listen(server.port)
     })
     .catch(err => console.log(err))
 

@@ -1,13 +1,16 @@
+import * as dotenv from 'dotenv'
 import { usertModel as User } from '../models/user.js'
 import bcrypt from "bcryptjs"
 import { login_messages as  msg, commons} from '../static/message.js'
 import jwt from 'jsonwebtoken'
-import { server } from '../static/config.js'
 import { checkArray, sendEmail } from '../util/util.js'
 import { userAttemptsModel } from '../models/user_attempts.js'
 import { nanoid } from 'nanoid'
 
+
 const login = async (req, res, next) => {
+
+    dotenv.config()
 
     let token
     let existingUser
@@ -37,7 +40,7 @@ const login = async (req, res, next) => {
 
     const currentAttempts = await userAttemptsModel.findOne({username: username})
 
-    if (currentAttempts.attempts > server.max_attempts) {
+    if (currentAttempts.attempts > process.env.MAX_ATTEMPTS) {
         res.status(500).json({status: "blocked", message: "Your account has been blocked, please check email."})
         return next()
     }
@@ -52,7 +55,7 @@ const login = async (req, res, next) => {
     isValidPattern = checkArray(existingUser.pattern, pattern, true)
 
     if (!isValidPassword || !isValidPattern) {
-        if (currentAttempts.attempts === server.max_attempts) {
+        if (currentAttempts.attempts === Number(process.env.MAX_ATTEMPTS)) {
             await userAttemptsModel.findOneAndUpdate({username: username}, {attempts: currentAttempts.attempts+1, token: nanoid(32)}).catch(err => console.log(err))
             //console.log("sending email entered")
             sendEmail(currentAttempts.email)
@@ -62,7 +65,7 @@ const login = async (req, res, next) => {
         return next()
     }
 
-    try { token = jwt.sign({userId: existingUser.id, email: existingUser.email}, server.token_key) }
+    try { token = jwt.sign({userId: existingUser.id, email: existingUser.email}, process.env.TOKEN_KEY) }
     catch (err) {
         console.log(err)
         res.status(500).json({message: commons.token_failed})

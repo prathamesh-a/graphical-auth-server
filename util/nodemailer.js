@@ -1,11 +1,13 @@
+import * as dotenv from 'dotenv'
 import { createTransport } from "nodemailer"
-import { smtp_settings } from "../static/config.js"
+
+dotenv.config()
 
 const transporter = createTransport({
     service: "gmail",
     auth: {
-        user: smtp_settings.user,
-        pass: smtp_settings.password
+        user: process.env.SMPT_USER,
+        pass: process.env.SMTP_PASSWORD
     }
 })
 

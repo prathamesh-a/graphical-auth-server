@@ -1,8 +1,10 @@
+import * as dotenv from 'dotenv'
 import fetch from "node-fetch";
 import { createApi } from "unsplash-js";
 import { userAttemptsModel } from "../models/user_attempts.js";
-import { server } from "../static/config.js";
 import { transporter } from "./nodemailer.js";
+
+dotenv.config()
 
 function checkArray(arr1, arr2, sequence) {
     if (arr1.length != arr2.length) return false;
@@ -51,7 +53,7 @@ async function sendEmail(email) {
         html: `<div>
                 <p>Your account has been blocked for multiple attempts of login with invalid credentials.</p>
                 <p>Click the link below to unblock:</p>
-                <a href='${server.url}/api/verify?email=${email}&token=${currentUser.token}'>Unblock</a>
+                <a href='${process.env.URL}/api/verify?email=${email}&token=${currentUser.token}'>Unblock</a>
                </div>`
     }
     console.log("Sending email to " + email)

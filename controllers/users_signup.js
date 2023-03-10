@@ -1,9 +1,11 @@
+import * as dotenv from 'dotenv'
 import { usertModel as User } from '../models/user.js'
 import bcrypt from "bcryptjs"
 import { commons, signup_messages as msg } from '../static/message.js'
 import jwt from 'jsonwebtoken'
-import { server } from '../static/config.js'
 import { userAttemptsModel } from '../models/user_attempts.js'
+
+dotenv.config()
 
 const signup = async (req, res, next) => {
 
@@ -60,7 +62,7 @@ const signup = async (req, res, next) => {
         return next()
     }
 
-    try { token = jwt.sign({userId: createdUser.id, email: createdUser.email}, server.token_key) }
+    try { token = jwt.sign({userId: createdUser.id, email: createdUser.email}, process.env.TOKEN_KEY) }
     catch (err) {
         res.status(500).json({message: commons.token_failed})
         return next()
